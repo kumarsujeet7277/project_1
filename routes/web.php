@@ -33,5 +33,8 @@ Route::middleware([
     Route::get('dashboard/edit-member/{id}', [MemberController::class, 'show'])->name('edit-member');
     Route::put('dashboard/edit-member', [MemberController::class, 'edit'])->name('update-member');
 
+
+    Route::get('search', [MemberController::class, 'search'])->name('search');
+
     Route::get('dashboard/create-catelog', [CatelogController::class, 'index'])->name('create-catelog');
 });

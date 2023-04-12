@@ -10,9 +10,16 @@
                             <div class="col-md-4">
                                 <a href="{{route('dashboard')}}" class="btn btn-success pull-right">Add New</a>
                             </div>
+                            
                             <div class="col-md-4">
-                                <input type="text" placeholder="Search..." class="form-control" />
+                                <form action="{{ route('search') }}" method="get">
+                                    <input type="search" placeholder="Search..." class="form-control" name="search" />
+                                </form>
                             </div>
+                            <!-- <div class="col-md-4">
+                                <a href="{{route('member-detail')}}" class="btn btn-success pull-right">Members</a>
+                            </div> -->
+                            
                         </div>
                     </div>
                     <div class="panel-body">
@@ -34,7 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($members as $member)
+                                @forelse ($members as $member)
                                     <tr>
                                         <td>{{$member->id}}</td>
                                         <td>{{$member->assignee_code}}</td>
@@ -49,7 +56,10 @@
                                                 <a href="{{ route('delete-member', [$member->id]) }}"  style="padding-left: 10px;" ><i class="fa fa-times fa-2x text-danger">Delete</i></a>
                                         </td>
                                     </tr>
-                                @endforeach
+
+                                @empty
+                                    <td style="color:red;"><h3>Detail Not Found</h3></td>
+                                @endforelse
                             </tbody>
                         </table>
                        

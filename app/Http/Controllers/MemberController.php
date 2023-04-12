@@ -204,4 +204,19 @@ class MemberController extends Controller
             return "data deleted successfully!";
         }
     }
+
+
+    public function search()
+    {
+        if (request('search')) 
+        {
+            $members = Member::where('name', 'like', '%' . request('search') . '%')->get();
+        } 
+        else 
+        {
+            $members = Member::all();
+        }
+
+        return view('member-detail', ['members'=>$members]);
+    }
 }
