@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\createReqMember;
 
 class MemberController extends Controller
 {
@@ -28,31 +29,35 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(createReqMember  $request)
     {
-        $request->validate([
-            'assignee_code' => 'required | digits:2',
-            'name' =>[
-                'required',
-                'regex:/^[\pL\s]+$/u',
-                'max:50',
-            ],
-            // alpha:ascii (for user only)
-            'mobile' => 'required | digits:10 | numeric | unique:members,mobile',
-            'email' => ' email|required | unique:members,email',
-            'password' => [
-                'required',
-                'confirmed',
-                'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-            ],
+        // dd($request);
+        // Member::validationRule();
+      
+
+        // $request->validate([
+        //     'assignee_code' => 'required | digits:2',
+        //     'name' =>[
+        //         'required',
+        //         'regex:/^[\pL\s]+$/u',
+        //         'max:50',
+        //     ],
+        //     // alpha:ascii (for user only it accept only character with no space ) 
+        //     'mobile' => 'required | digits:10 | numeric | unique:members,mobile',
+        //     'email' => ' email|required | unique:members,email',
+        //     'password' => [
+        //         'required',
+        //         'confirmed',
+        //         'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+        //     ],
             
-            'image' => 'required | mimes:jpg,png',
-            'role' => [
-                'required',
-                Rule::in(['Clerk', 'Manager', 'Supervisor', 'Devloper', 'Other']),
-            ],
+        //     'image' => 'required | mimes:jpg,png',
+        //     'role' => [
+        //         'required',
+        //         Rule::in(['Clerk', 'Manager', 'Supervisor', 'Devloper', 'Other']),
+        //     ],
            
-        ]);
+        // ]);
 
         $member = new Member;
         $member->assignee_code = $request->assignee_code;
@@ -110,38 +115,38 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Member $member)
+    public function edit(createReqMember  $request, Member $member)
     {
         $imageName = '';
 
 
-        $request->validate([
-            'assignee_code' => 'required | digits:2',
-            'name' =>[
-                'required',
-                'regex:/^[\pL\s]+$/u',
-                'max:50',
-            ],
-            // alpha:ascii (for user only)
-            'mobile' => 'required | digits:10 | numeric',
-            'email' => ' email|required ',
-            'password' => [
-                'required',
-                'confirmed',
-                'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-            ],
+        // $request->validate([
+        //     'assignee_code' => 'required | digits:2',
+        //     'name' =>[
+        //         'required',
+        //         'regex:/^[\pL\s]+$/u',
+        //         'max:50',
+        //     ],
+        //     // alpha:ascii (for user only)
+        //     'mobile' => 'required | digits:10 | numeric',
+        //     'email' => ' email|required ',
+        //     'password' => [
+        //         'required',
+        //         'confirmed',
+        //         'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+        //     ],
             
-            'image' => 'image | mimes:jpg,png',
+        //     'image' => 'image | mimes:jpg,png',
 
-            // 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     // 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
              
-            'role' => [
-                'required',
-                Rule::in(['Clerk', 'Manager', 'Supervisor', 'Devloper', 'Other']),   
-            ],
+        //     'role' => [
+        //         'required',
+        //         Rule::in(['Clerk', 'Manager', 'Supervisor', 'Devloper', 'Other']),   
+        //     ],
            
-        ]);
+        // ]);
 
        //  print_r($request->all());
         $member = Member::find($request->id);
